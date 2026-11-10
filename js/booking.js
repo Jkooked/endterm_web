@@ -110,3 +110,62 @@ $('#tourForm').on('submit', function (event) {
     this.reset();
     applyFilters();
 });
+
+function applyFilters() {
+    const query = $('#tourSearch').val().trim().toLocaleLowerCase();
+    const category = $('#tourFilters .active').data('category') || 'all';
+    let count = 0;
+
+    $rows.children('tr').each(function () {
+        const $row = $(this);
+        const matchesCategory =
+            category === 'all' || $row.data('category') === category;
+        const matchesSearch =
+            $row.text().toLocaleLowerCase().includes(query);
+
+        $row.toggle(matchesCategory && matchesSearch);
+        if (matchesCategory && matchesSearch) count++;
+    });
+
+    $('#tourCount').text(`${count} tours shown`);
+}
+
+$('#tourSearch').on('input', applyFilters);
+
+$('#tourFilters').on('click', 'button', function () {
+    $('#tourFilters button')
+        .removeClass('active btn-primary')
+        .addClass('btn-outline-primary');
+
+    $(this)
+        .addClass('active btn-primary')
+        .removeClass('btn-outline-primary');
+
+    applyFilters();
+});
+
+$rows.on('click', '.edit-tour', function () {
+    const $row = $(this).closest('tr');
+    const item = rowData($row);
+
+    const name = prompt('Package name:', item.name);
+    if (name === null || !name.trim()) return;
+
+    const price = prompt('Price in USD:', item.price);
+    if (price === null || !/^\d+$/.test(price) || Number(price) < 1) return;
+
+    item.name = name.trim();
+    item.price = price;
+
+    $row.replaceWith(renderRow(item));
+    saveCustomTours();
+    applyFilters();
+});
+
+$rows.on('click', '.delete-tour', function () {
+    if (!confirm('Delete this tour package?')) return;
+
+    $(this).closest('tr').remove();
+    saveCustomTours();
+    applyFilters();
+});
