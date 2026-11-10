@@ -193,4 +193,4 @@ Original page screenshots: [Gallery page](screenshots/site/gallery.jpg) and [Mob
 - Updated repository: [Jkooked/midterm_web](https://github.com/Jkooked/midterm_web)
 - Published website: [FLY FUN on GitHub Pages](https://jkooked.github.io/midterm_web/)
 
-The local endterm changes must be pushed to the existing repository before the published website reflects this update.
+The Endterm update is committed to the existing repository. Open the published website link above to view the deployed version; GitHub Pages may take a short time to reflect the latest commit.

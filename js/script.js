@@ -58,6 +58,7 @@ $(function () {
     const $rows = $('#tourRows');
     if ($rows.length) {
         const storageKey = 'flyfun-tours-v1';
+        const initialRows = $rows.children('tr').map(function () { return rowData($(this)); }).get();
         function rowData($row) {
             return { name: $row.find('th').first().text(), duration: $row.children('td').eq(0).text(), meals: $row.children('td').eq(1).text(), guide: $row.children('td').eq(2).text(), price: $row.children('td').eq(3).text().replace(/[^\d]/g, ''), category: $row.attr('data-category') || 'adventure' };
         }
@@ -92,11 +93,14 @@ $(function () {
         }
         try {
             const saved = localStorage.getItem(storageKey);
-            if (saved !== null) {
-                $rows.empty();
-                JSON.parse(saved).forEach(item => $rows.append(renderRow(item)));
-            }
-        } catch (_) { localStorage.removeItem(storageKey); }
+            const items = saved === null ? initialRows : JSON.parse(saved);
+            $rows.empty();
+            items.forEach(item => $rows.append(renderRow(item)));
+        } catch (_) {
+            localStorage.removeItem(storageKey);
+            $rows.empty();
+            initialRows.forEach(item => $rows.append(renderRow(item)));
+        }
 
         $('#tourSearch').on('input', applyFilters);
         $('#tourFilters').on('click', 'button', function () {
@@ -116,11 +120,26 @@ $(function () {
         $rows.on('click', '.edit-tour', function () {
             const $row = $(this).closest('tr');
             const item = rowData($row);
-            const name = prompt('Package name:', item.name);
-            if (name === null || !name.trim()) return;
-            const price = prompt('Price in USD:', item.price);
-            if (price === null || !/^\d+$/.test(price) || Number(price) < 1) return;
-            item.name = name.trim(); item.price = price;
+            const fields = [
+                ['Package name', 'name'], ['Duration', 'duration'],
+                ['Meals included', 'meals'], ['Guide service', 'guide'],
+                ['Price in USD', 'price']
+            ];
+            for (const [label, key] of fields) {
+                const value = prompt(`${label}:`, item[key]);
+                if (value === null || !value.trim()) return;
+                item[key] = value.trim();
+            }
+            if (!/^\d+$/.test(item.price) || Number(item.price) < 1) {
+                alert('Enter a valid positive price.');
+                return;
+            }
+            const category = prompt('Category: beach, adventure, or culture', item.category);
+            if (category === null || !['beach', 'adventure', 'culture'].includes(category.trim().toLowerCase())) {
+                alert('Choose beach, adventure, or culture.');
+                return;
+            }
+            item.category = category.trim().toLowerCase();
             $row.replaceWith(renderRow(item)); saveRows(); applyFilters();
         });
         $rows.on('click', '.delete-tour', function () {
