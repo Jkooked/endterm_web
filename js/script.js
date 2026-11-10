@@ -1,9 +1,36 @@
 /* FLY FUN endterm interactions */
 $(function () {
+    const tourStorageKey = 'flyfun-tours-v1';
+    const originalPackageValues = {
+        'Tropical Beach Escape': 'beach',
+        'Alpine Trail Hiking': 'alpine',
+        'European Cultural Tour': 'europe',
+        'Savannah Safari Explorer': 'safari'
+    };
+    function packageValue(name) {
+        if (originalPackageValues[name]) return originalPackageValues[name];
+        const slug = name.toLocaleLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+        return `custom-${slug}`;
+    }
+
     // Booking form validation and password feedback.
     const $booking = $('#booking-form');
     if ($booking.length) {
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+        // Rebuild the package dropdown from the same saved tour list used on Tours.
+        try {
+            const saved = localStorage.getItem(tourStorageKey);
+            if (saved !== null) {
+                const tours = JSON.parse(saved);
+                const $select = $('#packageSelect');
+                $select.find('option').not('[value=""]').remove();
+                tours.forEach(tour => {
+                    $('<option>').val(packageValue(tour.name)).text(tour.name).appendTo($select);
+                });
+            }
+        } catch (_) {
+            localStorage.removeItem(tourStorageKey);
+        }
         const selectedPackage = new URLSearchParams(location.search).get('package');
         if ($('#packageSelect option').filter(function () { return this.value === selectedPackage; }).length) {
             $('#packageSelect').val(selectedPackage);
@@ -57,7 +84,7 @@ $(function () {
 
     const $rows = $('#tourRows');
     if ($rows.length) {
-        const storageKey = 'flyfun-tours-v1';
+        const storageKey = tourStorageKey;
         const initialRows = $rows.children('tr').map(function () { return rowData($(this)); }).get();
         function rowData($row) {
             return { name: $row.find('th').first().text(), duration: $row.children('td').eq(0).text(), meals: $row.children('td').eq(1).text(), guide: $row.children('td').eq(2).text(), price: $row.children('td').eq(3).text().replace(/[^\d]/g, ''), category: $row.attr('data-category') || 'adventure' };
@@ -70,7 +97,9 @@ $(function () {
             $('<td>').text(item.guide).appendTo($row);
             $('<td class="text-primary fw-bold">').text(`$${Number(item.price).toLocaleString('en-US')}`).appendTo($row);
             const $actions = $('<td>');
-            $('<a class="btn btn-sm btn-outline-primary" href="contacts.html#booking-form">').text('Book').appendTo($actions);
+            $('<a class="btn btn-sm btn-outline-primary">')
+                .attr('href', `contacts.html?package=${encodeURIComponent(packageValue(item.name))}#booking-form`)
+                .text('Book').appendTo($actions);
             $('<button type="button" class="btn btn-sm btn-outline-secondary edit-tour">').text('Edit').appendTo($actions);
             $('<button type="button" class="btn btn-sm btn-outline-danger delete-tour ms-1">').text('Delete').appendTo($actions);
             $actions.appendTo($row);

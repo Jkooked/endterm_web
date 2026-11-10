@@ -137,6 +137,7 @@ FLY FUN remains a responsive travel agency website. This Endterm update adds cli
 - **Booking form validation:** required fields and email format are checked before the preview is shown. Password strength and confirmation feedback help visitors correct mistakes while typing.
 - **Tour search and category filters:** visitors can find trips by destination, duration, or price and narrow the list by category without reloading the page.
 - **Tour table CRUD:** visitors can add, read, update, and delete tour packages. Changes persist in that browser with `localStorage`.
+- **Booking dropdown sync:** the Contacts form reads the same saved tour list, so newly added tour packages are available to select for a booking preview.
 - **Destination lightbox:** visitors can enlarge gallery images, move between them with navigation arrows, and close the viewer with Escape. Fade and motion effects make image changes clearer.
 - **Responsive Bootstrap gallery:** Bootstrap cards and existing responsive styles keep the gallery usable on smaller screens.
 
