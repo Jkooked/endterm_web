@@ -54,4 +54,79 @@ $(function () {
                 .prop('hidden', false);
         });
     }
+
+    const $rows = $('#tourRows');
+    if ($rows.length) {
+        const storageKey = 'flyfun-tours-v1';
+        function rowData($row) {
+            return { name: $row.find('th').first().text(), duration: $row.children('td').eq(0).text(), meals: $row.children('td').eq(1).text(), guide: $row.children('td').eq(2).text(), price: $row.children('td').eq(3).text().replace(/[^\d]/g, ''), category: $row.attr('data-category') || 'adventure' };
+        }
+        function renderRow(item) {
+            const $row = $('<tr>').attr('data-category', item.category);
+            $('<th scope="row">').text(item.name).appendTo($row);
+            $('<td>').text(item.duration).appendTo($row);
+            $('<td>').text(item.meals).appendTo($row);
+            $('<td>').text(item.guide).appendTo($row);
+            $('<td class="text-primary fw-bold">').text(`$${Number(item.price).toLocaleString('en-US')}`).appendTo($row);
+            const $actions = $('<td>');
+            $('<a class="btn btn-sm btn-outline-primary" href="contacts.html#booking-form">').text('Book').appendTo($actions);
+            $('<button type="button" class="btn btn-sm btn-outline-secondary edit-tour">').text('Edit').appendTo($actions);
+            $('<button type="button" class="btn btn-sm btn-outline-danger delete-tour ms-1">').text('Delete').appendTo($actions);
+            $actions.appendTo($row);
+            return $row;
+        }
+        function saveRows() {
+            localStorage.setItem(storageKey, JSON.stringify($rows.children('tr').map(function () { return rowData($(this)); }).get()));
+        }
+        function applyFilters() {
+            const query = $('#tourSearch').val().trim().toLocaleLowerCase();
+            const category = $('#tourFilters .active').data('category') || 'all';
+            let count = 0;
+            $rows.children('tr').each(function () {
+                const $row = $(this);
+                const matches = (category === 'all' || $row.data('category') === category) && $row.text().toLocaleLowerCase().includes(query);
+                $row.toggle(matches);
+                if (matches) count++;
+            });
+            $('#tourCount').text(`${count} tours shown`);
+        }
+        try {
+            const saved = localStorage.getItem(storageKey);
+            if (saved !== null) {
+                $rows.empty();
+                JSON.parse(saved).forEach(item => $rows.append(renderRow(item)));
+            }
+        } catch (_) { localStorage.removeItem(storageKey); }
+
+        $('#tourSearch').on('input', applyFilters);
+        $('#tourFilters').on('click', 'button', function () {
+            $('#tourFilters button').removeClass('active btn-primary').addClass('btn-outline-primary');
+            $(this).addClass('active btn-primary').removeClass('btn-outline-primary');
+            applyFilters();
+        });
+        $('#tourForm').on('submit', function (event) {
+            event.preventDefault();
+            const item = { name: $('#newTourName').val().trim(), duration: $('#newTourDuration').val().trim(), meals: $('#newTourMeals').val().trim(), guide: $('#newTourGuide').val().trim(), price: $('#newTourPrice').val(), category: $('#newTourCategory').val() };
+            if (!item.name || !item.duration || !item.meals || !item.guide || Number(item.price) < 1) return;
+            $rows.append(renderRow(item));
+            saveRows();
+            this.reset();
+            applyFilters();
+        });
+        $rows.on('click', '.edit-tour', function () {
+            const $row = $(this).closest('tr');
+            const item = rowData($row);
+            const name = prompt('Package name:', item.name);
+            if (name === null || !name.trim()) return;
+            const price = prompt('Price in USD:', item.price);
+            if (price === null || !/^\d+$/.test(price) || Number(price) < 1) return;
+            item.name = name.trim(); item.price = price;
+            $row.replaceWith(renderRow(item)); saveRows(); applyFilters();
+        });
+        $rows.on('click', '.delete-tour', function () {
+            if (!confirm('Delete this tour package?')) return;
+            $(this).closest('tr').remove(); saveRows(); applyFilters();
+        });
+        applyFilters();
+    }
 });
