@@ -41,7 +41,19 @@
                 <h1 class="fw-bold">Tour Packages &amp; Pricing</h1>
                 <p class="text-secondary">Compare our curated travel packages and find your ideal vacation</p>
             </div>
-            <!--Mandatory HTML Table wrapped in responsive wrapper-->
+            <!-- Search and category filters -->
+            <section class="tour-tools mb-4" aria-label="Search and filter tours">
+                <label class="form-label fw-semibold" for="tourSearch">Find a trip</label>
+                <input id="tourSearch" class="form-control mb-3" type="search" placeholder="Search destinations, duration, or price" aria-describedby="tourCount">
+                <div class="d-flex flex-wrap gap-2" id="tourFilters" role="group" aria-label="Filter tours by category">
+                    <button type="button" class="btn btn-primary btn-sm active" data-category="all">All tours</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" data-category="beach">Beach</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" data-category="adventure">Adventure</button>
+                    <button type="button" class="btn btn-outline-primary btn-sm" data-category="culture">Culture</button>
+                </div>
+                <p id="tourCount" class="small text-secondary mt-2 mb-0" aria-live="polite"></p>
+            </section>
+            <!-- Mandatory tour table -->
             <div class="table-responsive shadow-sm rounded border">
                 <table class="table custom-table align-middle text-center mb-0">
                     <caption class="visually-hidden">Travel package comparison and prices per person in US dollars</caption>
@@ -55,8 +67,8 @@
                             <th scope="col" class="py-3">Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
+                    <tbody id="tourRows">
+                        <tr data-category="beach">
                             <th class="fw-bold" scope="row">Tropical Beach Escape</th>
                             <td>5 Days / 4 Nights</td>
                             <td>Breakfast Only</td>
@@ -64,9 +76,11 @@
                             <td class="text-primary fw-bold">$499</td>
                             <td>
                                 <a href="contacts.html?package=beach#booking-form" class="btn btn-sm btn-outline-primary">Book Now</a>
+                                <button type="button" class="btn btn-sm btn-outline-secondary edit-tour">Edit</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger delete-tour">Delete</button>
                             </td>
                         </tr>
-                        <tr>
+                        <tr data-category="adventure">
                             <th class="fw-bold" scope="row">Alpine Trail Hiking</th>
                             <td>7 Days / 6 Nights</td>
                             <td>All Meals</td>
@@ -74,9 +88,11 @@
                             <td class="text-primary fw-bold">$899</td>
                             <td>
                                 <a href="contacts.html?package=alpine#booking-form" class="btn btn-sm btn-outline-primary">Book Now</a>
+                                <button type="button" class="btn btn-sm btn-outline-secondary edit-tour">Edit</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger delete-tour">Delete</button>
                             </td>
                         </tr>
-                        <tr>
+                        <tr data-category="culture">
                             <th class="fw-bold" scope="row">European Cultural Tour</th>
                             <td>10 Days / 9 Nights</td>
                             <td>Breakfast &amp; Dinner</td>
@@ -84,9 +100,11 @@
                             <td class="text-primary fw-bold">$1,499</td>
                             <td>
                                 <a href="contacts.html?package=europe#booking-form" class="btn btn-sm btn-outline-primary">Book Now</a>
+                                <button type="button" class="btn btn-sm btn-outline-secondary edit-tour">Edit</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger delete-tour">Delete</button>
                             </td>
                         </tr>
-                        <tr>
+                        <tr data-category="adventure">
                             <th class="fw-bold" scope="row">Savannah Safari Explorer</th>
                             <td>6 Days / 5 Nights</td>
                             <td>All Meals</td>
@@ -94,11 +112,25 @@
                             <td class="text-primary fw-bold">$1,299</td>
                             <td>
                                 <a href="contacts.html?package=safari#booking-form" class="btn btn-sm btn-outline-primary">Book Now</a>
+                                <button type="button" class="btn btn-sm btn-outline-secondary edit-tour">Edit</button>
+                                <button type="button" class="btn btn-sm btn-outline-danger delete-tour">Delete</button>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+            <form id="tourForm" class="card card-body mt-4" aria-label="Add a tour">
+                <h2 class="h5">Add a tour package</h2>
+                <div class="row g-3">
+                    <div class="col-md-4"><label class="form-label" for="newTourName">Package name</label><input class="form-control" id="newTourName" required></div>
+                    <div class="col-md-2"><label class="form-label" for="newTourDuration">Duration</label><input class="form-control" id="newTourDuration" required></div>
+                    <div class="col-md-2"><label class="form-label" for="newTourMeals">Meals</label><input class="form-control" id="newTourMeals" required></div>
+                    <div class="col-md-2"><label class="form-label" for="newTourGuide">Guide</label><input class="form-control" id="newTourGuide" required></div>
+                    <div class="col-md-2"><label class="form-label" for="newTourPrice">Price (USD)</label><input class="form-control" id="newTourPrice" type="number" min="1" required></div>
+                    <div class="col-12"><label class="form-label" for="newTourCategory">Category</label><select class="form-select" id="newTourCategory"><option value="beach">Beach</option><option value="adventure">Adventure</option><option value="culture">Culture</option></select></div>
+                    <div class="col-12"><button class="btn btn-primary" type="submit">Add package</button></div>
+                </div>
+            </form>
         </main>
         <footer class="site-footer bg-dark text-white py-5 mt-auto">
             <div class="container">
