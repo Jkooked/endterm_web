@@ -129,4 +129,37 @@ $(function () {
         });
         applyFilters();
     }
+
+
+    const $images = $('.gallery-card img');
+    const $box = $('#galleryLightbox');
+    if ($images.length && $box.length) {
+        let activeIndex = 0;
+        function showImage(index) {
+            activeIndex = (index + $images.length) % $images.length;
+            const $image = $images.eq(activeIndex);
+            $('#lightboxImage').stop(true, true).fadeOut(100, function () {
+                $(this).attr('src', $image.attr('src')).attr('alt', $image.attr('alt'))
+                    .css({ marginTop: '-12px', opacity: 0 }).show().animate({ marginTop: '0px', opacity: 1 }, 180);
+            });
+            $('#lightboxCaption').text($image.closest('.gallery-card').find('.gallery-caption').text());
+        }
+        function closeBox() {
+            $box.fadeOut(180, function () { $(this).prop('hidden', true).attr('aria-hidden', 'true'); });
+        }
+        $images.css('cursor', 'zoom-in').on('click', function () {
+            activeIndex = $images.index(this); showImage(activeIndex);
+            $box.prop('hidden', false).attr('aria-hidden', 'false').hide().fadeIn(180);
+        });
+        $('.lightbox-prev').on('click', () => showImage(activeIndex - 1));
+        $('.lightbox-next').on('click', () => showImage(activeIndex + 1));
+        $('.lightbox-close').on('click', closeBox);
+        $box.on('click', event => { if (event.target === $box[0]) closeBox(); });
+        $(document).on('keydown', event => {
+            if ($box.attr('aria-hidden') === 'true') return;
+            if (event.key === 'Escape') closeBox();
+            if (event.key === 'ArrowLeft') showImage(activeIndex - 1);
+            if (event.key === 'ArrowRight') showImage(activeIndex + 1);
+        });
+    }
 });
