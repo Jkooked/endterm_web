@@ -125,3 +125,72 @@ Repository: [Jkooked/midterm_web](https://github.com/Jkooked/midterm_web).
 ## Demo Form
 
 The booking form validates input and displays a local preview. It does not send requests, save submissions, or confirm bookings. Contact details are for demonstration purposes, and the social links lead to the platforms' homepages.
+
+# Endterm Project Update
+
+## Project Topic and Summary
+
+FLY FUN remains a responsive travel agency website. This Endterm update adds client-side interactions to the existing Midterm pages: validated booking and registration fields, a searchable tour catalog with editable records, and an interactive destination gallery. The site gives visitors clearer feedback while they browse tours and prepare a demo booking request.
+
+## Endterm Features and Benefits
+
+- **Booking form validation:** required fields and email format are checked before the preview is shown. Password strength and confirmation feedback help visitors correct mistakes while typing.
+- **Tour search and category filters:** visitors can find trips by destination, duration, or price and narrow the list by category without reloading the page.
+- **Tour table CRUD:** visitors can add, read, update, and delete tour packages. Changes persist in that browser with `localStorage`.
+- **Destination lightbox:** visitors can enlarge gallery images, move between them with navigation arrows, and close the viewer with Escape. Fade and motion effects make image changes clearer.
+- **Responsive Bootstrap gallery:** Bootstrap cards and existing responsive styles keep the gallery usable on smaller screens.
+
+## Technologies Used for the Endterm Update
+
+HTML5, CSS3, Bootstrap 5.3.3, JavaScript, jQuery 3.7.1, and browser `localStorage`. The endterm JavaScript is in `js/script.js`; page styling remains in `css/style.css`.
+
+## Endterm Team Member Contributions
+
+| Team member | Endterm contribution | How it helps the site |
+| --- | --- | --- |
+| **Karima M.** | Booking form validation, email RegEx, password strength and confirmation feedback; adding and displaying tour records. | Helps visitors catch incomplete or invalid form entries and lets the team maintain the tour list. |
+| **Saida Kh.** | Case-insensitive tour search, category filters, editing and deleting tours, and saving table changes locally. | Helps visitors find relevant trips quickly and keeps tour updates available after a page reload in the same browser. |
+| **Ainaz A.** | Responsive Bootstrap gallery cards, lightbox, image navigation, keyboard controls, transitions, and this endterm documentation. | Lets visitors inspect destination photos at a larger size and navigate the gallery on desktop or mobile. |
+
+## Endterm Code and Website Screenshots
+
+The code screenshots below show the implementation sections for each member. The website images are the original page screenshots already included with the Midterm project; they show the page layouts, while the new interactive states are not visible in those older captures. New browser screenshots of the updated interactive states still need to be captured after opening the current site.
+
+### Karima
+
+Karima added form checks and password feedback, along with the tour creation and row-rendering pieces.
+
+![Karima form validation code](screenshots/endterm/code/karima-validation.png)
+
+![Karima password fields code](screenshots/endterm/code/karima-password-fields.png)
+
+![Karima tour creation code](screenshots/endterm/code/karima-tour-create.png)
+
+Original page screenshot: [Contacts and booking form](screenshots/site/contacts.jpg).
+
+### Saida
+
+Saida added live search and filters, plus tour editing and deletion with local persistence.
+
+![Saida tour search and filters code](screenshots/endterm/code/saida-search-filter.png)
+
+![Saida tour update and delete code](screenshots/endterm/code/saida-update-delete.png)
+
+Original page screenshot: [Tour packages table](screenshots/site/tours.jpg).
+
+### Ainaz
+
+Ainaz added the responsive gallery, lightbox controls, and endterm documentation.
+
+![Ainaz lightbox and navigation code](screenshots/endterm/code/ainaz-lightbox.png)
+
+![Ainaz gallery markup and styles](screenshots/endterm/code/ainaz-gallery-html-css.png)
+
+Original page screenshots: [Gallery page](screenshots/site/gallery.jpg) and [Mobile gallery page](screenshots/site/mobile-gallery.jpg).
+
+## Endterm Submission Links
+
+- Updated repository: [Jkooked/midterm_web](https://github.com/Jkooked/midterm_web)
+- Published website: [FLY FUN on GitHub Pages](https://jkooked.github.io/midterm_web/)
+
+The local endterm changes must be pushed to the existing repository before the published website reflects this update.
