@@ -88,3 +88,25 @@ $('#password').on('input', function () {
         .addClass(level[1])
         .css('width', `${level[2]}%`);
 });
+
+$('#tourForm').on('submit', function (event) {
+    event.preventDefault();
+
+    const item = {
+        name: $('#newTourName').val().trim(),
+        duration: $('#newTourDuration').val().trim(),
+        meals: $('#newTourMeals').val().trim(),
+        guide: $('#newTourGuide').val().trim(),
+        price: $('#newTourPrice').val(),
+        category: $('#newTourCategory').val()
+    };
+
+    if (!item.name || !item.duration || !item.meals || !item.guide || Number(item.price) < 1) {
+        return;
+    }
+
+    $rows.append(renderRow(item));
+    saveCustomTours();
+    this.reset();
+    applyFilters();
+});
