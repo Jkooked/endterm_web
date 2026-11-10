@@ -43,30 +43,36 @@
             </div>
             <!--Custom CSS Grid Gallery Container-->
             <div class="custom-gallery-grid">
-                <div class="gallery-card">
+                <div class="gallery-card card border-0 shadow-sm">
                     <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Beach sunset" loading="lazy">
                     <div class="gallery-caption">Maldives Coast</div>
                 </div>
-                <div class="gallery-card">
+                <div class="gallery-card card border-0 shadow-sm">
                     <img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Snowy peaks" loading="lazy">
                     <div class="gallery-caption">Swiss Alps</div>
                 </div>
-                <div class="gallery-card">
+                <div class="gallery-card card border-0 shadow-sm">
                     <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="London streets" loading="lazy">
                     <div class="gallery-caption">London, UK</div>
                 </div>
-                <div class="gallery-card">
+                <div class="gallery-card card border-0 shadow-sm">
                     <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Italian coast" loading="lazy">
                 <div class="gallery-caption">Italian Coast</div>
                 </div>
-                <div class="gallery-card">
+                <div class="gallery-card card border-0 shadow-sm">
                 <img src="https://images.unsplash.com/photo-1528164344705-47542687000d?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Japanese pagoda with Mount Fuji" loading="lazy">
                 <div class="gallery-caption">Japan</div>
                 </div>
-                <div class="gallery-card">
+                <div class="gallery-card card border-0 shadow-sm">
                 <img src="https://images.unsplash.com/photo-1509316785289-025f5b846b35?auto=format&amp;fit=crop&amp;w=600&amp;q=80" alt="Desert rock formations" loading="lazy">
                 <div class="gallery-caption">Desert Landscapes</div>
                 </div>
+            </div>
+            <div class="gallery-lightbox" id="galleryLightbox" role="dialog" aria-modal="true" aria-label="Destination image viewer" aria-hidden="true" hidden>
+                <button type="button" class="lightbox-close" aria-label="Close image viewer">×</button>
+                <button type="button" class="lightbox-prev" aria-label="Previous image">‹</button>
+                <figure><img id="lightboxImage" alt=""><figcaption id="lightboxCaption"></figcaption></figure>
+                <button type="button" class="lightbox-next" aria-label="Next image">›</button>
             </div>
         </main>
         <footer class="site-footer bg-dark text-white py-5 mt-auto">
