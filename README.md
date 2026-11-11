@@ -193,5 +193,3 @@ Original page screenshots: [Gallery page](screenshots/site/gallery.jpg) and [Mob
 
 - Updated repository: [Jkooked/midterm_web](https://github.com/Jkooked/midterm_web)
 - Published website: [FLY FUN on GitHub Pages](https://jkooked.github.io/midterm_web/)
-
-Push the merged `main` branch to the existing repository so GitHub Pages can publish the latest changes.
