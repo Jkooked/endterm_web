@@ -191,5 +191,5 @@ Original page screenshots: [Gallery page](screenshots/site/gallery.jpg) and [Mob
 
 ## Endterm Submission Links
 
-- Updated repository: [Jkooked/midterm_web](https://github.com/Jkooked/midterm_web)
-- Published website: [FLY FUN on GitHub Pages](https://jkooked.github.io/midterm_web/)
+- Updated repository: [Jkooked/endterm_web](https://github.com/Jkooked/endterm_web)
+- Published website: [FLY FUN on GitHub Pages](https://jkooked.github.io/endterm_web/)
