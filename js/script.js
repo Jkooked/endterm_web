@@ -211,3 +211,40 @@ $(function () {
         });
     }
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    
+    const themeToggleBtn = document.getElementById('theme-toggle');
+    const body = document.body;
+    
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        body.setAttribute('data-bs-theme', 'dark');
+        if (themeToggleBtn) {
+            themeToggleBtn.innerHTML = ' <span class="theme-text">Light</span>';
+            themeToggleBtn.classList.replace('btn-outline-primary', 'btn-outline-warning');
+        }
+    }
+
+    // 2. Обработчик клика по кнопке
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-bs-theme');
+            
+            if (currentTheme === 'dark') {
+                // Включаем светлую
+                body.removeAttribute('data-bs-theme');
+                localStorage.setItem('theme', 'light');
+                themeToggleBtn.innerHTML = '<span class="theme-text">Dark</span>';
+                themeToggleBtn.classList.replace('btn-outline-warning', 'btn-outline-primary');
+            } else {
+                // Включаем темную
+                body.setAttribute('data-bs-theme', 'dark');
+                localStorage.setItem('theme', 'dark');
+                themeToggleBtn.innerHTML = ' <span class="theme-text">Light</span>';
+                themeToggleBtn.classList.replace('btn-outline-primary', 'btn-outline-warning');
+            }
+        });
+    }
+});
+
