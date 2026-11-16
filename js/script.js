@@ -263,3 +263,78 @@ $(document).ready(function() {
         }
     });
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+    const cityInput = document.getElementById('citySearch');
+    const searchBtn = document.getElementById('searchWeatherBtn');
+    const weatherContainer = document.getElementById('weatherContainer');
+
+    
+    async function getCoordinates(city) {
+        const response = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1&language=en&format=json`);
+        if (!response.ok) throw new Error('Geocoding failed');
+        const data = await response.json();
+        if (!data.results || data.results.length === 0) {
+            throw new Error('City not found');
+        }
+        return data.results[0];
+    }
+
+ 
+    async function getWeather(lat, lon) {
+        const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
+        if (!response.ok) throw new Error('Weather fetch failed');
+        return await response.json();
+    }
+
+    async function searchWeather() {
+        const city = cityInput.value.trim();
+        if (!city) return;
+
+        weatherContainer.innerHTML = '<p class="text-center text-secondary w-100">Loading weather data...</p>';
+
+        try {
+            
+            const location = await getCoordinates(city);
+            
+            
+            const weatherData = await getWeather(location.latitude, location.longitude);
+            const current = weatherData.current_weather;
+
+            
+            const weatherHtml = `
+                <div class="col-12 col-md-8 col-lg-6">
+                    <div class="card shadow-sm border-0 text-center p-4">
+                        <h3 class="fw-bold mb-1">${location.name}, ${location.country}</h3>
+                        <p class="text-secondary mb-4">Current Weather</p>
+                        <div class="display-1 fw-bold text-primary mb-3">${current.temperature}°C</div>
+                        <p class="mb-1"><strong>Wind Speed:</strong> ${current.windspeed} km/h</p>
+                        <p class="text-secondary small">Last updated: ${current.time}</p>
+                    </div>
+                </div>
+            `;
+            weatherContainer.innerHTML = weatherHtml;
+
+        } catch (error) {
+            console.error('Weather API Error:', error);
+            
+            weatherContainer.innerHTML = `
+                <div class="col-12 col-md-8">
+                    <div class="alert alert-danger text-center" role="alert">
+                        Could not find weather for "${city}". Please check the spelling and try again.
+                    </div>
+                </div>
+            `;
+        }
+    }
+
+   
+    if (searchBtn) {
+        searchBtn.addEventListener('click', searchWeather);
+    }
+    if (cityInput) {
+        cityInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') searchWeather();
+        });
+    }
+});

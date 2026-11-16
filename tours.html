@@ -136,6 +136,26 @@
                     <div class="col-12"><button class="btn btn-primary" type="submit">Add package</button></div>
                 </div>
             </form>
+
+            <section class="container py-5 border-top mt-5">
+                <div class="text-center mb-4">
+                    <h2 class="fw-bold">Check the Weather</h2>
+                    <p class="text-secondary">Planning your trip? See the current weather at your destination.</p>
+                </div>
+                <div class="row justify-content-center mb-4">
+                    <div class="col-md-6">
+                        <label for="citySearch" class="visually-hidden">Search city</label>
+                        <div class="input-group input-group-lg shadow-sm">
+                            <input type="text" id="citySearch" class="form-control" placeholder="Enter city (e.g., Almaty, London)...">
+                            <button class="btn btn-primary" type="button" id="searchWeatherBtn">Search</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center" id="weatherContainer">
+                    <p class="text-center text-secondary w-100">Enter a city name to see the weather.</p>
+                </div>
+            </section>
+
         </main>
         <footer class="site-footer bg-dark text-white py-5 mt-auto">
             <div class="container">
