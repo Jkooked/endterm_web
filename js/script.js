@@ -338,3 +338,79 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 });
+
+
+// --- SIGN-IN FUNCTIONALITY (Karima) ---
+document.addEventListener('DOMContentLoaded', () => {
+    const authContainer = document.getElementById('authContainer');
+    const loginForm = document.getElementById('loginForm');
+    const loginModalElement = document.getElementById('loginModal');
+    
+    // Проверяем, есть ли пользователь в localStorage
+    function checkAuthState() {
+        const loggedInUser = localStorage.getItem('flyfun_user');
+        
+        if (loggedInUser) {
+            // Пользователь авторизован
+            const user = JSON.parse(loggedInUser);
+            authContainer.innerHTML = `
+                <div class="d-flex align-items-center gap-2">
+                    <span class="text-primary fw-bold d-none d-md-inline">Hi, ${user.name}!</span>
+                    <button id="logoutBtn" class="btn btn-outline-danger btn-sm">Sign Out</button>
+                </div>
+            `;
+            
+            // Добавляем обработчик для кнопки выхода
+            document.getElementById('logoutBtn').addEventListener('click', () => {
+                localStorage.removeItem('flyfun_user');
+                checkAuthState(); // Обновляем интерфейс
+            });
+            
+        } else {
+            // Пользователь не авторизован
+            authContainer.innerHTML = `
+                <button id="openLoginBtn" class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    Sign In
+                </button>
+            `;
+        }
+    }
+
+    // Обработка отправки формы
+    if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+
+            // Валидация (Bootstrap)
+            if (!loginForm.checkValidity()) {
+                loginForm.classList.add('was-validated');
+                return;
+            }
+
+            // Получаем данные
+            const name = document.getElementById('loginName').value.trim();
+            const email = document.getElementById('loginEmail').value.trim();
+
+            // Сохраняем в localStorage (только имя и email, без пароля для безопасности)
+            const user = { name, email };
+            localStorage.setItem('flyfun_user', JSON.stringify(user));
+
+            // Закрываем модалку
+            const modal = bootstrap.Modal.getInstance(loginModalElement);
+            if (modal) modal.hide();
+
+            // Обновляем интерфейс
+            checkAuthState();
+            
+            // Сбрасываем форму
+            loginForm.reset();
+            loginForm.classList.remove('was-validated');
+        });
+    }
+
+    // Запускаем проверку при загрузке страницы
+    if (authContainer) {
+        checkAuthState();
+    }
+});
