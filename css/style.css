@@ -120,7 +120,7 @@ button:focus-visible,
     outline-color: var(--secondary-color);
 }
 
-/* Hero Section Styling */
+
 .hero-section {
     background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
     url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
@@ -150,7 +150,7 @@ button:focus-visible,
     --bs-table-bg: var(--light-color);
 }
 
-/* Destination Card Enhancements */
+
 .destination-card {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -164,7 +164,7 @@ button:focus-visible,
     height: 220px;
     object-fit: cover;
 }
-/* Custom CSS Grid Gallery */
+
 .custom-gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -202,7 +202,7 @@ button:focus-visible,
     font-weight: 600;
 }
 
-/* Tablet: keep the logo above a compact, wrapping navigation menu. */
+
 @media (max-width: 767.98px) {
     .flex-nav {
         flex-direction: column;
@@ -218,7 +218,7 @@ button:focus-visible,
     }
 }
 
-/* Mobile: reduce spacing and let the gallery fit narrow viewports. */
+
 @media (max-width: 575.98px) {
     .brand-link {
         font-size: 1.5rem;

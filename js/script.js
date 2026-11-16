@@ -225,19 +225,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 2. Обработчик клика по кнопке
+    
     if (themeToggleBtn) {
         themeToggleBtn.addEventListener('click', () => {
             const currentTheme = body.getAttribute('data-bs-theme');
             
             if (currentTheme === 'dark') {
-                // Включаем светлую
+                
                 body.removeAttribute('data-bs-theme');
                 localStorage.setItem('theme', 'light');
                 themeToggleBtn.innerHTML = '<span class="theme-text">Dark</span>';
                 themeToggleBtn.classList.replace('btn-outline-warning', 'btn-outline-primary');
             } else {
-                // Включаем темную
+                
                 body.setAttribute('data-bs-theme', 'dark');
                 localStorage.setItem('theme', 'dark');
                 themeToggleBtn.innerHTML = ' <span class="theme-text">Light</span>';
@@ -340,18 +340,18 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-// --- SIGN-IN FUNCTIONALITY (Karima) ---
+
 document.addEventListener('DOMContentLoaded', () => {
     const authContainer = document.getElementById('authContainer');
     const loginForm = document.getElementById('loginForm');
     const loginModalElement = document.getElementById('loginModal');
     
-    // Проверяем, есть ли пользователь в localStorage
+    
     function checkAuthState() {
         const loggedInUser = localStorage.getItem('flyfun_user');
         
         if (loggedInUser) {
-            // Пользователь авторизован
+            
             const user = JSON.parse(loggedInUser);
             authContainer.innerHTML = `
                 <div class="d-flex align-items-center gap-2">
@@ -360,14 +360,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             `;
             
-            // Добавляем обработчик для кнопки выхода
+            
             document.getElementById('logoutBtn').addEventListener('click', () => {
                 localStorage.removeItem('flyfun_user');
-                checkAuthState(); // Обновляем интерфейс
+                checkAuthState(); 
             });
             
         } else {
-            // Пользователь не авторизован
+            
             authContainer.innerHTML = `
                 <button id="openLoginBtn" class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">
                     Sign In
@@ -376,40 +376,38 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Обработка отправки формы
+    
     if (loginForm) {
         loginForm.addEventListener('submit', (e) => {
             e.preventDefault();
             e.stopPropagation();
 
-            // Валидация (Bootstrap)
+            
             if (!loginForm.checkValidity()) {
                 loginForm.classList.add('was-validated');
                 return;
             }
 
-            // Получаем данные
+            
             const name = document.getElementById('loginName').value.trim();
             const email = document.getElementById('loginEmail').value.trim();
 
-            // Сохраняем в localStorage (только имя и email, без пароля для безопасности)
+            
             const user = { name, email };
             localStorage.setItem('flyfun_user', JSON.stringify(user));
 
-            // Закрываем модалку
+            
             const modal = bootstrap.Modal.getInstance(loginModalElement);
             if (modal) modal.hide();
 
-            // Обновляем интерфейс
+            
             checkAuthState();
             
-            // Сбрасываем форму
+            
             loginForm.reset();
             loginForm.classList.remove('was-validated');
         });
     }
-
-    // Запускаем проверку при загрузке страницы
     if (authContainer) {
         checkAuthState();
     }
