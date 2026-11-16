@@ -319,21 +319,27 @@ body[data-bs-theme="dark"] .text-dark {
 
 .faq-question {
     transition: background-color 0.3s ease;
+    cursor: pointer;
 }
 
 .faq-question:hover {
     background-color: #f8f9fa;
 }
 
-body.dark-theme .faq-question:hover {
-    background-color: #2b3035;
+body[data-bs-theme="dark"] .faq-item {
+    background-color: #1e1e1e !important;
+    border: 1px solid #333 !important;
 }
 
-body.dark-theme .faq-item {
-    border-color: #333 !important;
+body[data-bs-theme="dark"] .faq-question {
+    color: #ffffff !important;
+    background-color: transparent !important;
 }
 
-.faq-icon {
-    transition: transform 0.3s ease;
-    user-select: none;
+body[data-bs-theme="dark"] .faq-question:hover {
+    background-color: #2b3035 !important;
+}
+
+body[data-bs-theme="dark"] .faq-answer {
+    color: #adb5bd !important;
 }
