@@ -1,4 +1,3 @@
-/* FLY FUN endterm interactions */
 $(function () {
     const tourStorageKey = 'flyfun-tours-v1';
     const originalPackageValues = {
@@ -13,11 +12,11 @@ $(function () {
         return `custom-${slug}`;
     }
 
-    // Booking form validation and password feedback.
+
     const $booking = $('#booking-form');
     if ($booking.length) {
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
-        // Rebuild the package dropdown from the same saved tour list used on Tours.
+        
         try {
             const saved = localStorage.getItem(tourStorageKey);
             if (saved !== null) {
@@ -248,3 +247,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
+
+$(document).ready(function() {
+    $('.faq-question').on('click', function() {
+        
+        const $answer = $(this).next('.faq-answer');
+        const $icon = $(this).find('.faq-icon');
+        
+        $answer.slideToggle(300);
+            
+        if ($icon.text() === '+') {
+            $icon.text('−');
+        } else {
+            $icon.text('+');
+        }
+    });
+});
