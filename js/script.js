@@ -282,7 +282,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
  
     async function getWeather(lat, lon) {
-        const response = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`);
+        
+        const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto`;
+        const response = await fetch(url);
         if (!response.ok) throw new Error('Weather fetch failed');
         return await response.json();
     }
@@ -308,7 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             
             const weatherData = await getWeather(location.latitude, location.longitude);
-            const current = weatherData.current_weather;
+            const daily = weatherData.daily;
 
             
             while (weatherContainer.firstChild) {
@@ -316,45 +318,45 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             
-            const colDiv = document.createElement('div');
-            colDiv.className = 'col-12 col-md-8 col-lg-6';
-
-            const cardDiv = document.createElement('div');
-            cardDiv.className = 'card shadow-sm border-0 text-center p-4';
-
+            const headerDiv = document.createElement('div');
+            headerDiv.className = 'col-12 text-center mb-4';
             const h3 = document.createElement('h3');
             h3.className = 'fw-bold mb-1';
-            h3.textContent = `${location.name}, ${location.country}`; // Безопасно
-
+            h3.textContent = `${location.name}, ${location.country}`;
             const pSub = document.createElement('p');
-            pSub.className = 'text-secondary mb-4';
-            pSub.textContent = 'Current Weather';
-
-            const tempDiv = document.createElement('div');
-            tempDiv.className = 'display-1 fw-bold text-primary mb-3';
-            tempDiv.textContent = `${current.temperature}°C`;
-
-            const pWind = document.createElement('p');
-            pWind.className = 'mb-1';
-            
-            const strongWind = document.createElement('strong');
-            strongWind.textContent = 'Wind Speed: ';
-            pWind.appendChild(strongWind);
-            pWind.appendChild(document.createTextNode(`${current.windspeed} km/h`));
-
-            const pTime = document.createElement('p');
-            pTime.className = 'text-secondary small';
-            pTime.textContent = `Last updated: ${current.time}`;
+            pSub.className = 'text-secondary mb-0';
+            pSub.textContent = '7-Day Weather Forecast';
+            headerDiv.appendChild(h3);
+            headerDiv.appendChild(pSub);
+            weatherContainer.appendChild(headerDiv);
 
             
-            cardDiv.appendChild(h3);
-            cardDiv.appendChild(pSub);
-            cardDiv.appendChild(tempDiv);
-            cardDiv.appendChild(pWind);
-            cardDiv.appendChild(pTime);
-            colDiv.appendChild(cardDiv);
-            
-            weatherContainer.appendChild(colDiv);
+            for (let i = 0; i < daily.time.length; i++) {
+                const colDiv = document.createElement('div');
+                colDiv.className = 'col-6 col-md-4 col-lg-3 mb-3';
+
+                const cardDiv = document.createElement('div');
+                cardDiv.className = 'card shadow-sm border-0 text-center p-3 h-100';
+
+                const dateP = document.createElement('p');
+                dateP.className = 'fw-bold mb-1';
+                
+                dateP.textContent = new Date(daily.time[i]).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+
+                const maxP = document.createElement('p');
+                maxP.className = 'text-danger mb-0';
+                maxP.textContent = `Max: ${daily.temperature_2m_max[i]}°C`;
+
+                const minP = document.createElement('p');
+                minP.className = 'text-primary mb-0';
+                minP.textContent = `Min: ${daily.temperature_2m_min[i]}°C`;
+
+                cardDiv.appendChild(dateP);
+                cardDiv.appendChild(maxP);
+                cardDiv.appendChild(minP);
+                colDiv.appendChild(cardDiv);
+                weatherContainer.appendChild(colDiv);
+            }
 
         } catch (error) {
             console.error('Weather API Error:', error);
@@ -371,7 +373,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const alertDiv = document.createElement('div');
             alertDiv.className = 'alert alert-danger text-center';
             alertDiv.setAttribute('role', 'alert');
-            
             
             if (error.message === 'City not found') {
                 alertDiv.textContent = `Could not find city "${city}". Please check spelling.`;
