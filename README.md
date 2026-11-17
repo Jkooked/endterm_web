@@ -242,11 +242,11 @@ These responsibilities continue the existing team contribution record. Each memb
 3. Reviewed the features against the Final requirements and corrected whitespace-only names, unsafe text insertion, and ambiguous API error messages.
 4. Replaced current-weather output with seven daily forecast cards; corrected date formatting so a visitor's time zone cannot shift a forecast to the previous day.
 5. Packaged the existing third-party resources locally, adjusted the tablet navigation layout, and added visible AI acknowledgement.
-6. Tested the current implementation in a browser and refreshed the screenshots and separate report.
+6. Tested the current implementation in a browser and refreshed the screenshots.
 
 ## Validation
 
-The Final checks cover theme persistence on all five pages; sign-in validation, refresh persistence, and sign-out; all five FAQ answers and indicators; live forecast loading; unknown-city and network-failure messages; literal rendering of user text; matching forecast dates in Almaty and New York time zones; and page widths of 320, 390, 768, and 1440 pixels. Local-resource checks load the pages while blocking external requests. The report records the verified results.
+The Final checks cover theme persistence on all five pages; sign-in validation, refresh persistence, and sign-out; all five FAQ answers and indicators; live forecast loading; unknown-city and network-failure messages; literal rendering of user text; matching forecast dates in Almaty and New York time zones; and page widths of 320, 390, 768, and 1440 pixels. Local-resource checks load the pages while blocking external requests.
 
 ## Final Screenshots
 
@@ -269,11 +269,4 @@ The Final checks cover theme persistence on all five pages; sign-in validation, 
 
 ## AI Acknowledgement
 
-AI tools, including OpenAI Codex, assisted with code refactoring, debugging, API integration ideas, documentation, and testing. The Final corrections include AI-assisted checks of date handling, form validation, resource packaging, and browser behavior. The website displays the same acknowledgement on About, linked from every page's footer. Team members remain responsible for reviewing the submitted work and explaining it during the defense.
-
-## Final Report and Submission Links
-
-- [Current website](https://jkooked.github.io/endterm_web/)
-- [Current repository](https://github.com/Jkooked/endterm_web)
-
-No build step is required. Open `index.html`, or serve the project folder with a static HTTP server. Internet access is needed for the live weather API. The sign-in and booking form are demonstrations; the booking preview does not send a request or confirm a reservation.
+AI tools, including OpenAI Codex, assisted with code refactoring, debugging, API integration ideas, documentation, and testing.
