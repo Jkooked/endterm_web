@@ -1,3 +1,11 @@
+@font-face {
+    font-family: "Outfit";
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('../assets/fonts/Outfit-Variable.ttf') format('truetype');
+}
+
 :root {
     --primary-color: #0077b6;
     --secondary-color: #00b4d8;
@@ -37,7 +45,29 @@ p {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
     padding: 1rem 0;
+}
+
+.logo,
+.nav-list,
+#theme-toggle {
+    flex-shrink: 0;
+}
+
+#authContainer {
+    min-width: 0;
+    max-width: 100%;
+}
+
+#authContainer span {
+    max-width: 14rem;
+    overflow-wrap: anywhere;
+}
+
+#logoutBtn {
+    flex-shrink: 0;
 }
 
 .brand-link {
@@ -123,7 +153,7 @@ button:focus-visible,
 
 .hero-section {
     background: linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
-    url('https://images.unsplash.com/photo-1488646953014-85cb44e25828?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    url('../assets/images/photo-1488646953014-85cb44e25828.jpg') center/cover no-repeat;
     padding: 6rem 0;
 }
 
@@ -139,6 +169,10 @@ button:focus-visible,
 
 #booking-form {
     scroll-margin-top: 8rem;
+}
+
+#ai-acknowledgement {
+    scroll-margin-top: 14rem;
 }
 
 #booking-feedback {
@@ -203,7 +237,7 @@ button:focus-visible,
 }
 
 
-@media (max-width: 767.98px) {
+@media (max-width: 991.98px) {
     .flex-nav {
         flex-direction: column;
         gap: 0.5rem;

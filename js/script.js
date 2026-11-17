@@ -341,7 +341,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const dateP = document.createElement('p');
                 dateP.className = 'fw-bold mb-1';
                 
-                dateP.textContent = new Date(daily.time[i]).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+                // API dates are calendar dates, not timestamps in the visitor's time zone.
+                dateP.textContent = new Date(daily.time[i]).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' });
 
                 const maxP = document.createElement('p');
                 maxP.className = 'text-danger mb-0';
