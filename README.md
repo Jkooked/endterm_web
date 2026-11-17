@@ -193,3 +193,67 @@ Original page screenshots: [Gallery page](screenshots/site/gallery.jpg) and [Mob
 
 - Updated repository: [Jkooked/endterm_web](https://github.com/Jkooked/endterm_web)
 - Published website: [FLY FUN on GitHub Pages](https://jkooked.github.io/endterm_web/)
+
+
+
+# Final Project Update
+
+## Project Topic and Summary
+
+FLY FUN remains a responsive travel agency website. The Final Project update completes the required interactive features, focusing on user personalization, data integration, and enhanced client-side interactivity. Visitors can now switch between light and dark themes, sign in to the website, read FAQs, and check real-time weather for their travel destinations.
+
+## Final Project Features and Benefits
+
+- **Light/Dark Theme Toggle:** Users can switch between light and dark themes. The selected theme is saved in `localStorage` and remains active across all pages after a refresh, providing a comfortable viewing experience.
+- **Sign-in Functionality:** A secure sign-in modal with input validation. User information (name and email) is saved in `localStorage`, keeping the user signed in after a page refresh. The navigation bar dynamically updates to show a personalized greeting and a "Sign Out" button.
+- **FAQ Section:** A Frequently Asked Questions section on the About page containing 5 travel-related questions. It uses jQuery `.slideToggle()` for smooth opening/closing animations and includes visual `+` / `-` indicators.
+- **API Integration (Weather):** Integration with the Open-Meteo API using JavaScript `fetch()`. Users can search for any city and view its current temperature and wind speed. The feature includes dynamic DOM rendering, input validation, and error handling for non-existent cities or network failures.
+- **Security & Accessibility:** All dynamic user inputs (names, cities) are inserted using `textContent` instead of `innerHTML` to prevent XSS vulnerabilities. The custom sign-in form uses robust validation to prevent empty or invalid submissions.
+
+## Technologies Used for the Final Project Update
+
+HTML5, CSS3, Bootstrap 5.3.3, JavaScript (ES6, `fetch()`, `localStorage`), jQuery 3.7.1, and the Open-Meteo Public API. The Final Project JavaScript is integrated into `js/script.js`; page styling and theme variables are in `css/style.css`.
+
+## Final Project Team Member Contributions
+
+| Team member | Final Project contribution | How it helps the site |
+| --- | --- | --- |
+| **Saida Kh.** | **Theme Toggle:** Implemented CSS variables for dark mode, JavaScript logic to toggle the `data-bs-theme` attribute, and `localStorage` to save user preferences. | Enhances user experience by providing a visually comfortable dark mode that persists across the entire website. |
+| **Karima M.** | **Sign-in & API Integration:** Created the secure sign-in modal with validation and localStorage persistence. Integrated the Open-Meteo Weather API using `fetch()`, handling JSON data and error states safely without `innerHTML`. | Allows users to personalize their experience and check real-time weather at their destination before booking. |
+| **Ainaz A.** | **FAQ Section:** Added the HTML structure for 5 questions, implemented the jQuery `.slideToggle()` animation, and styled the `+/-` indicators. Fixed dark theme CSS overrides for the FAQ section. | Provides visitors with quick answers to common travel questions without leaving the page. |
+
+## Final Project Code and Website Screenshots
+
+The screenshots below demonstrate the new interactive features implemented for the Final Project.
+
+### Saida (Theme Toggle)
+
+The theme toggle changes the entire color scheme of the website and remembers the choice.
+
+![Dark theme active on the home page](screenshots/final/dark-theme.jpg)
+![Code for theme toggle](screenshots/final/code/saida-theme-code.png)
+
+### Karima (Sign-in & Weather API)
+
+The sign-in modal validates inputs securely. The Weather API fetches real-time data based on the user's search query.
+
+![Sign-in modal with validation](screenshots/final/sign-in.jpg)
+![Code for Sign-in validation](screenshots/final/code/karima-signin-code.png)
+![Weather API search result](screenshots/final/weather-api.jpg)
+![Code for Weather API and fetch](screenshots/final/code/karima-api-code.png)
+
+### Ainaz (FAQ Section)
+
+The FAQ section uses jQuery to smoothly expand and collapse answers.
+
+![FAQ section with open answers](screenshots/final/faq.jpg)
+![Code for jQuery slideToggle](screenshots/final/code/ainaz-faq-code.png)
+
+## AI Usage Policy
+
+AI tools were used as supporting tools for code refactoring, bug fixing (e.g., CSS dark theme overlaps), and generating API integration ideas. All AI-generated code was reviewed, tested, and adapted to fit the project's specific architecture by the team members. No user data or sensitive information was processed by AI.
+
+## Final Submission Links
+
+- Updated repository: [Jkooked/endterm_web](https://github.com/Jkooked/endterm_web)
+- Published website: [FLY FUN on GitHub Pages](https://jkooked.github.io/endterm_web/)
