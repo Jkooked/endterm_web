@@ -198,6 +198,8 @@ Original page screenshots: [Gallery page](screenshots/site/gallery.jpg) and [Mob
 
 # Final Project Update
 
+The Final Project extends FLY FUN with persistent user preferences, validated demo sign-in, an animated FAQ, and a public weather API. This section explains what each feature does, how it was implemented, and how the completed behavior was checked.
+
 ## Project Topic and Objectives
 
 FLY FUN is a responsive educational travel agency website. The Final update adds theme preferences, browser-only sign-in, travel FAQs, and a 7-day destination weather forecast. The objective is to help visitors explore tours and plan a demo trip while demonstrating HTML/CSS, JavaScript, jQuery, localStorage, and public API integration.
@@ -205,6 +207,8 @@ FLY FUN is a responsive educational travel agency website. The Final update adds
 The Midterm and Endterm sections above are retained as the project history. Their descriptions, screenshots, links, and contribution records refer to those earlier stages. Use the Final links below for the current version.
 
 ## Website Structure
+
+The website keeps its five-page travel agency structure. New Final features are integrated into the existing pages so visitors can use them through the same navigation and visual design.
 
 | Page | Purpose |
 | --- | --- |
@@ -218,6 +222,8 @@ All five pages share navigation, styling, the theme toggle, and the sign-in inte
 
 ## Final Features and Implementation
 
+The Final functionality combines shared JavaScript, jQuery interactions, browser storage, and live API data. The features below describe both the visitor's experience and the implementation behind it.
+
 - **Light/Dark Theme Toggle:** The selected theme is saved under `theme` in localStorage and restored on every page after a refresh. Shared CSS styles the navigation, cards, forms, table, and FAQ in both themes.
 - **Demo Sign-in and Sign-out:** The form checks the email and rejects names that are empty after trimming spaces. Only the name and email are saved under `flyfun_user`; no password is stored. The greeting and Sign Out button remain after a refresh or page change. Signing out removes that state. This is a client-side coursework demonstration, not server authentication or identity verification.
 - **FAQ:** About contains five travel questions. jQuery `.slideToggle(300)` opens and closes the answers, and the indicator switches between `+` and `−`.
@@ -225,7 +231,15 @@ All five pages share navigation, styling, the theme toggle, and the sign-in inte
 - **Error Handling and Safe Rendering:** An unknown city and an unavailable weather service show different messages. User-entered names and cities are rendered as text, not interpreted as HTML.
 - **Local Resources:** jQuery, Bootstrap CSS/JS, Outfit, and all page images are included in the project. Only the live Open-Meteo forecast requires an external data service. Resource origins are listed in `assets/sources.json`, and library/font licenses are in `assets/licenses/`.
 
+## Technologies Used for the Final Project
+
+HTML5 provides the page structure and forms, while CSS3 and Bootstrap 5.3.3 provide consistent styling and responsive layouts. JavaScript handles theme preferences, sign-in state, validation, and forecast rendering. jQuery 3.7.1 supplies the FAQ sliding animation. The Open-Meteo geocoding and forecast APIs provide real destination weather data through `fetch()` and JSON.
+
+The shared behavior is implemented in `js/script.js`, and custom styling is in `css/style.css`. Theme and demo sign-in preferences use `localStorage`, allowing them to survive page refreshes and navigation in the same browser.
+
 ## Final Team Member Contributions
+
+The responsibilities below describe each member's Final features and continue the division of work established in the earlier project stages.
 
 | Team member | Final contribution |
 | --- | --- |
@@ -237,6 +251,8 @@ These responsibilities continue the existing team contribution record. Each memb
 
 ## Development Process
 
+Development focused on extending the existing website, then checking the new features against the Final requirements. The review also led to corrections in input validation, safe text rendering, forecast dates, and tablet navigation.
+
 1. Retained the five-page Midterm structure and Endterm interactions.
 2. Added the Final theme, sign-in, FAQ, and weather features to the shared JavaScript and styles.
 3. Reviewed the features against the Final requirements and corrected whitespace-only names, unsafe text insertion, and ambiguous API error messages.
@@ -246,27 +262,57 @@ These responsibilities continue the existing team contribution record. Each memb
 
 ## Validation
 
-The Final checks cover theme persistence on all five pages; sign-in validation, refresh persistence, and sign-out; all five FAQ answers and indicators; live forecast loading; unknown-city and network-failure messages; literal rendering of user text; matching forecast dates in Almaty and New York time zones; and page widths of 320, 390, 768, and 1440 pixels. Local-resource checks load the pages while blocking external requests.
+The corrected Final implementation passed 68 automated browser checks before publication. The checks covered theme persistence on all five pages; sign-in validation, refresh persistence, and sign-out; all five FAQ answers and indicators; live forecast loading; unknown-city and network-failure messages; literal rendering of user text; matching forecast dates in Almaty and New York time zones; and page widths of 320, 390, 768, and 1440 pixels. Local-resource checks loaded the pages while blocking external requests.
+
+After publication, the live GitHub Pages version was also checked for the AI acknowledgement, bundled images and font, FAQ interaction, theme persistence, seven-day forecast, date labels, and mobile layout.
 
 ## Final Screenshots
 
+The screenshots below pair the visible Final features with their corresponding code. They show actual interface states: the dark theme, a rejected sign-in value, a successful weather search, and expanded FAQ answers.
+
 ### Theme Toggle — Saida
 
+Saida's theme feature switches the site's shared colors between light and dark modes. The website screenshot shows Home in dark mode, including the navigation and destination cards.
+
 ![Dark theme active on the home page](screenshots/final/dark-theme.jpg)
+
+The code changes the `data-bs-theme` attribute, updates the toggle button, and saves the selected theme in `localStorage` for later visits and page changes.
+
 ![JavaScript for theme switching and persistence](screenshots/final/code/saida-theme-code.jpg)
 
 ### Sign-in and Weather API — Karima
 
+Karima's sign-in feature validates the form before saving the visitor's name and email. The example below rejects a name containing only spaces while accepting the email format. A successful submission updates the navigation with a greeting and Sign Out button.
+
 ![Sign-in form rejecting a whitespace-only name](screenshots/final/sign-in.jpg)
+
+The validation code trims the entered name, rejects an empty result, saves the valid demo state, and closes the sign-in modal. An input listener clears the custom validation error when the visitor corrects the name.
+
 ![JavaScript validating and saving demo sign-in information](screenshots/final/code/karima-signin-code.jpg)
+
+The weather feature lets visitors search for a destination before choosing a trip. This successful Almaty search displays seven forecast dates with daily maximum and minimum temperatures in responsive cards.
+
 ![Seven-day forecast for Almaty](screenshots/final/weather-api.jpg)
+
+The API code first resolves the city to coordinates, then requests daily forecast data and reads the JSON response. Explicit date formatting keeps each forecast attached to the correct calendar day regardless of the browser's time zone.
+
 ![JavaScript fetching the daily forecast and formatting its dates](screenshots/final/code/karima-api-code.jpg)
 
 ### FAQ — Ainaz
 
+Ainaz's FAQ gives visitors quick answers to five common travel questions. Two answers are expanded in the screenshot, with minus indicators; the other questions remain collapsed with plus indicators.
+
 ![FAQ with expanded answers and minus indicators](screenshots/final/faq.jpg)
+
+The jQuery click handler finds the selected question's answer, opens or closes it with `.slideToggle(300)`, and changes the indicator to match the expanded state.
+
 ![jQuery slideToggle and expansion indicators](screenshots/final/code/ainaz-faq-code.jpg)
 
 ## AI Acknowledgement
 
 AI tools, including OpenAI Codex, assisted with code refactoring, debugging, API integration ideas, documentation, and testing.
+
+## Final Submission Links
+
+- [Final Website — FLY FUN on GitHub Pages](https://jkooked.github.io/endterm_web/)
+- [Final Repository — Jkooked/endterm_web](https://github.com/Jkooked/endterm_web)
