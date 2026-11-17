@@ -273,7 +273,6 @@ AI tools, including OpenAI Codex, assisted with code refactoring, debugging, API
 
 ## Final Report and Submission Links
 
-- [Group Final report (PDF)](output/pdf/FLY_FUN_Final_Report.pdf)
 - [Current website](https://jkooked.github.io/endterm_web/)
 - [Current repository](https://github.com/Jkooked/endterm_web)
 
