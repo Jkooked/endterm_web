@@ -291,7 +291,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const city = cityInput.value.trim();
         if (!city) return;
 
-        weatherContainer.innerHTML = '<p class="text-center text-secondary w-100">Loading weather data...</p>';
+        
+        while (weatherContainer.firstChild) {
+            weatherContainer.removeChild(weatherContainer.firstChild);
+        }
+        
+        
+        const loadingP = document.createElement('p');
+        loadingP.className = 'text-center text-secondary w-100';
+        loadingP.textContent = 'Loading weather data...';
+        weatherContainer.appendChild(loadingP);
 
         try {
             
@@ -302,29 +311,76 @@ document.addEventListener('DOMContentLoaded', () => {
             const current = weatherData.current_weather;
 
             
-            const weatherHtml = `
-                <div class="col-12 col-md-8 col-lg-6">
-                    <div class="card shadow-sm border-0 text-center p-4">
-                        <h3 class="fw-bold mb-1">${location.name}, ${location.country}</h3>
-                        <p class="text-secondary mb-4">Current Weather</p>
-                        <div class="display-1 fw-bold text-primary mb-3">${current.temperature}°C</div>
-                        <p class="mb-1"><strong>Wind Speed:</strong> ${current.windspeed} km/h</p>
-                        <p class="text-secondary small">Last updated: ${current.time}</p>
-                    </div>
-                </div>
-            `;
-            weatherContainer.innerHTML = weatherHtml;
+            while (weatherContainer.firstChild) {
+                weatherContainer.removeChild(weatherContainer.firstChild);
+            }
+
+            
+            const colDiv = document.createElement('div');
+            colDiv.className = 'col-12 col-md-8 col-lg-6';
+
+            const cardDiv = document.createElement('div');
+            cardDiv.className = 'card shadow-sm border-0 text-center p-4';
+
+            const h3 = document.createElement('h3');
+            h3.className = 'fw-bold mb-1';
+            h3.textContent = `${location.name}, ${location.country}`; // Безопасно
+
+            const pSub = document.createElement('p');
+            pSub.className = 'text-secondary mb-4';
+            pSub.textContent = 'Current Weather';
+
+            const tempDiv = document.createElement('div');
+            tempDiv.className = 'display-1 fw-bold text-primary mb-3';
+            tempDiv.textContent = `${current.temperature}°C`;
+
+            const pWind = document.createElement('p');
+            pWind.className = 'mb-1';
+            
+            const strongWind = document.createElement('strong');
+            strongWind.textContent = 'Wind Speed: ';
+            pWind.appendChild(strongWind);
+            pWind.appendChild(document.createTextNode(`${current.windspeed} km/h`));
+
+            const pTime = document.createElement('p');
+            pTime.className = 'text-secondary small';
+            pTime.textContent = `Last updated: ${current.time}`;
+
+            
+            cardDiv.appendChild(h3);
+            cardDiv.appendChild(pSub);
+            cardDiv.appendChild(tempDiv);
+            cardDiv.appendChild(pWind);
+            cardDiv.appendChild(pTime);
+            colDiv.appendChild(cardDiv);
+            
+            weatherContainer.appendChild(colDiv);
 
         } catch (error) {
             console.error('Weather API Error:', error);
             
-            weatherContainer.innerHTML = `
-                <div class="col-12 col-md-8">
-                    <div class="alert alert-danger text-center" role="alert">
-                        Could not find weather for "${city}". Please check the spelling and try again.
-                    </div>
-                </div>
-            `;
+            
+            while (weatherContainer.firstChild) {
+                weatherContainer.removeChild(weatherContainer.firstChild);
+            }
+
+            
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'col-12 col-md-8';
+            
+            const alertDiv = document.createElement('div');
+            alertDiv.className = 'alert alert-danger text-center';
+            alertDiv.setAttribute('role', 'alert');
+            
+            
+            if (error.message === 'City not found') {
+                alertDiv.textContent = `Could not find city "${city}". Please check spelling.`;
+            } else {
+                alertDiv.textContent = 'The weather service is temporarily unavailable. Please try again later.';
+            }
+            
+            errorDiv.appendChild(alertDiv);
+            weatherContainer.appendChild(errorDiv);
         }
     }
 
@@ -350,29 +406,48 @@ document.addEventListener('DOMContentLoaded', () => {
     function checkAuthState() {
         const loggedInUser = localStorage.getItem('flyfun_user');
         
+        
+        while (authContainer.firstChild) {
+            authContainer.removeChild(authContainer.firstChild);
+        }
+        
         if (loggedInUser) {
-            
             const user = JSON.parse(loggedInUser);
-            authContainer.innerHTML = `
-                <div class="d-flex align-items-center gap-2">
-                    <span class="text-primary fw-bold d-none d-md-inline">Hi, ${user.name}!</span>
-                    <button id="logoutBtn" class="btn btn-outline-danger btn-sm">Sign Out</button>
-                </div>
-            `;
             
             
-            document.getElementById('logoutBtn').addEventListener('click', () => {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'd-flex align-items-center gap-2';
+            
+            const greeting = document.createElement('span');
+            greeting.className = 'text-primary fw-bold d-none d-md-inline';
+            greeting.textContent = `Hi, ${user.name}!`; 
+            
+            const logoutBtn = document.createElement('button');
+            logoutBtn.id = 'logoutBtn';
+            logoutBtn.className = 'btn btn-outline-danger btn-sm';
+            logoutBtn.textContent = 'Sign Out';
+            
+            wrapper.appendChild(greeting);
+            wrapper.appendChild(logoutBtn);
+            authContainer.appendChild(wrapper);
+            
+            
+            logoutBtn.addEventListener('click', () => {
                 localStorage.removeItem('flyfun_user');
-                checkAuthState(); 
+                checkAuthState();
             });
             
         } else {
             
-            authContainer.innerHTML = `
-                <button id="openLoginBtn" class="btn btn-primary btn-sm" type="button" data-bs-toggle="modal" data-bs-target="#loginModal">
-                    Sign In
-                </button>
-            `;
+            const loginBtn = document.createElement('button');
+            loginBtn.id = 'openLoginBtn';
+            loginBtn.className = 'btn btn-primary btn-sm';
+            loginBtn.type = 'button';
+            loginBtn.setAttribute('data-bs-toggle', 'modal');
+            loginBtn.setAttribute('data-bs-target', '#loginModal');
+            loginBtn.textContent = 'Sign In';
+            
+            authContainer.appendChild(loginBtn);
         }
     }
 
@@ -382,32 +457,43 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             e.stopPropagation();
 
-            
+            const nameInput = document.getElementById('loginName');
+            const emailInput = document.getElementById('loginEmail');
+
+            nameInput.setCustomValidity('');
+
             if (!loginForm.checkValidity()) {
                 loginForm.classList.add('was-validated');
                 return;
             }
 
-            
-            const name = document.getElementById('loginName').value.trim();
-            const email = document.getElementById('loginEmail').value.trim();
+            const name = nameInput.value.trim();
+            const email = emailInput.value.trim();
 
-            
+            if (!name) {
+                nameInput.setCustomValidity('Name cannot be empty or just spaces');
+                loginForm.classList.add('was-validated');
+                return;
+            }
+
             const user = { name, email };
             localStorage.setItem('flyfun_user', JSON.stringify(user));
 
-            
             const modal = bootstrap.Modal.getInstance(loginModalElement);
             if (modal) modal.hide();
 
-            
             checkAuthState();
-            
-            
+
             loginForm.reset();
             loginForm.classList.remove('was-validated');
+            nameInput.setCustomValidity('');
+        });
+
+        document.getElementById('loginName').addEventListener('input', function() {
+            this.setCustomValidity('');
         });
     }
+
     if (authContainer) {
         checkAuthState();
     }
