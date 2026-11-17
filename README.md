@@ -231,23 +231,23 @@ The screenshots below demonstrate the new interactive features implemented for t
 The theme toggle changes the entire color scheme of the website and remembers the choice.
 
 ![Dark theme active on the home page](screenshots/final/dark-theme.jpg)
-![Code for theme toggle](screenshots/final/code/saida-theme-code.png)
+![Code for theme toggle](screenshots/final/code/saida-theme-code.jpg)
 
 ### Karima (Sign-in & Weather API)
 
 The sign-in modal validates inputs securely. The Weather API fetches real-time data based on the user's search query.
 
 ![Sign-in modal with validation](screenshots/final/sign-in.jpg)
-![Code for Sign-in validation](screenshots/final/code/karima-signin-code.png)
+![Code for Sign-in validation](screenshots/final/code/karima-signin-code.jpg)
 ![Weather API search result](screenshots/final/weather-api.jpg)
-![Code for Weather API and fetch](screenshots/final/code/karima-api-code.png)
+![Code for Weather API and fetch](screenshots/final/code/karima-api-code.jpg)
 
 ### Ainaz (FAQ Section)
 
 The FAQ section uses jQuery to smoothly expand and collapse answers.
 
 ![FAQ section with open answers](screenshots/final/faq.jpg)
-![Code for jQuery slideToggle](screenshots/final/code/ainaz-faq-code.png)
+![Code for jQuery slideToggle](screenshots/final/code/ainaz-faq-code.jpg)
 
 ## AI Usage Policy
 
